@@ -25,7 +25,7 @@ export function loadGsiScript() {
 }
 
 // Iniciar sesión y obtener un token de acceso OAuth2
-export function authenticateGoogle(clientId) {
+export function authenticateGoogle(clientId, forceConsent = false) {
   return new Promise((resolve, reject) => {
     if (!clientId) {
       reject(new Error("Se requiere el Google Client ID para autenticar."));
@@ -40,15 +40,39 @@ export function authenticateGoogle(clientId) {
           if (response.error) {
             reject(response);
           } else {
+            const expiryTime = Date.now() + (response.expires_in || 3600) * 1000;
+            localStorage.setItem("google_access_token", response.access_token);
+            localStorage.setItem("google_token_expiry", expiryTime.toString());
             resolve(response.access_token);
           }
         },
       });
-      tokenClient.requestAccessToken({ prompt: "consent" });
+      tokenClient.requestAccessToken({ prompt: forceConsent ? "consent" : "" });
     } catch (err) {
       reject(err);
     }
   });
+}
+
+// Obtener el token guardado en localStorage si sigue siendo válido (con margen de seguridad de 5 mins)
+export function getStoredGoogleToken() {
+  const token = localStorage.getItem("google_access_token");
+  const expiry = localStorage.getItem("google_token_expiry");
+  if (token && expiry) {
+    const expiryTime = parseInt(expiry, 10);
+    const now = Date.now();
+    // Margen de 5 minutos (300,000 ms) antes de que expire realmente
+    if (now < expiryTime - 5 * 60 * 1000) {
+      return token;
+    }
+  }
+  return null;
+}
+
+// Limpiar el token guardado en localStorage
+export function clearStoredGoogleToken() {
+  localStorage.removeItem("google_access_token");
+  localStorage.removeItem("google_token_expiry");
 }
 
 // Inicializar hoja de cálculo con columnas de encabezado si está vacía

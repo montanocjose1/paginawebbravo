@@ -5,7 +5,9 @@ import {
   loadGsiScript,
   authenticateGoogle,
   saveProductToGoogle,
-  uploadImageToDrive
+  uploadImageToDrive,
+  getStoredGoogleToken,
+  clearStoredGoogleToken
 } from "../services/googleService";
 
 export default function Admin() {
@@ -21,7 +23,7 @@ export default function Admin() {
   const [searchQuery, setSearchQuery] = useState("");
   
   // Estado para la conexión de Google
-  const [googleToken, setGoogleToken] = useState("");
+  const [googleToken, setGoogleToken] = useState(() => getStoredGoogleToken() || "");
   const [googleLoading, setGoogleLoading] = useState(false);
   const [gsiLoaded, setGsiLoaded] = useState(false);
 
@@ -99,17 +101,27 @@ export default function Admin() {
     setIsAuthenticated(false);
     sessionStorage.removeItem("bravostyle_admin_authenticated");
     setGoogleToken("");
+    clearStoredGoogleToken();
   };
 
-  // Autenticar con Google OAuth
+  // Autenticar o Desconectar Google OAuth
   const handleConnectGoogle = async () => {
+    if (googleToken) {
+      if (confirm("¿Está seguro de que desea desconectar su cuenta de Google?")) {
+        setGoogleToken("");
+        clearStoredGoogleToken();
+        alert("Cuenta de Google desconectada.");
+      }
+      return;
+    }
+
     if (!cfgClientId) {
       alert("Por favor configure e ingrese primero su Google Client ID.");
       return;
     }
     setGoogleLoading(true);
     try {
-      const token = await authenticateGoogle(cfgClientId);
+      const token = await authenticateGoogle(cfgClientId, true); // forceConsent = true when manually connecting
       setGoogleToken(token);
       alert("¡Autenticación con Google exitosa! Ahora puede subir imágenes y editar datos.");
     } catch (error) {
@@ -118,6 +130,34 @@ export default function Admin() {
     } finally {
       setGoogleLoading(false);
     }
+  };
+
+  // Asegura que tengamos un token válido, de lo contrario pide autenticación bajo un click gesture
+  const ensureValidToken = async () => {
+    if (!window.google || !window.google.accounts) {
+      const success = await loadGsiScript();
+      if (!success) {
+        throw new Error("No se pudo cargar la librería de autenticación de Google GSI.");
+      }
+    }
+
+    const token = getStoredGoogleToken();
+    if (token) {
+      if (googleToken !== token) {
+        setGoogleToken(token);
+      }
+      return token;
+    }
+
+    const clientId = config.googleClientId || cfgClientId;
+    if (!clientId) {
+      throw new Error("Por favor configure su Google Client ID en la pestaña de Conexión Google.");
+    }
+
+    // Abre el popup de autenticación bajo el click gesture
+    const newToken = await authenticateGoogle(clientId, false);
+    setGoogleToken(newToken);
+    return newToken;
   };
 
   // Guardar cambios de Configuración General
@@ -198,19 +238,16 @@ export default function Admin() {
     };
 
     if (config.useGoogle && config.sheetId) {
-      if (!googleToken) {
-        alert("Debe conectar su cuenta de Google en la pestaña 'Conexión Google' antes de poder guardar cambios en la hoja.");
-        return;
-      }
       setGoogleLoading(true);
       try {
-        await saveProductToGoogle(config.sheetId, productData, googleToken);
+        const activeToken = await ensureValidToken();
+        await saveProductToGoogle(config.sheetId, productData, activeToken);
         alert("Producto guardado correctamente en Google Sheets.");
         setShowProductModal(false);
         refreshProducts();
       } catch (err) {
         console.error("Error al guardar en Sheets:", err);
-        alert("Error al escribir en Google Sheets. Verifique permisos y conexión.");
+        alert(err.message || "Error al escribir en Google Sheets. Verifique permisos y conexión.");
       } finally {
         setGoogleLoading(false);
       }
@@ -238,18 +275,15 @@ export default function Admin() {
     const updatedProduct = { ...product, status: "deleted" };
 
     if (config.useGoogle && config.sheetId) {
-      if (!googleToken) {
-        alert("Debe conectar su cuenta de Google antes de poder guardar la eliminación en la hoja.");
-        return;
-      }
       setGoogleLoading(true);
       try {
-        await saveProductToGoogle(config.sheetId, updatedProduct, googleToken);
+        const activeToken = await ensureValidToken();
+        await saveProductToGoogle(config.sheetId, updatedProduct, activeToken);
         alert("Producto eliminado correctamente en Google Sheets.");
         refreshProducts();
       } catch (err) {
         console.error("Error borrando en Sheets:", err);
-        alert("Error al eliminar producto en Google Sheets.");
+        alert(err.message || "Error al eliminar producto en Google Sheets.");
       } finally {
         setGoogleLoading(false);
       }
@@ -272,14 +306,10 @@ export default function Admin() {
       return;
     }
 
-    if (!googleToken) {
-      alert("Debe conectar su cuenta de Google antes de poder subir imágenes.");
-      return;
-    }
-
     setImageUploading(true);
     try {
-      const driveFileId = await uploadImageToDrive(config.driveFolderId, file, googleToken);
+      const activeToken = await ensureValidToken();
+      const driveFileId = await uploadImageToDrive(config.driveFolderId, file, activeToken);
       
       if (uploadTarget === "main") {
         setFormImage(driveFileId);
@@ -292,7 +322,7 @@ export default function Admin() {
       alert("Imagen subida a Google Drive de forma exitosa y vinculada.");
     } catch (err) {
       console.error("Error subiendo imagen:", err);
-      alert("Fallo al subir la imagen. Compruebe permisos e intente de nuevo.");
+      alert(err.message || "Fallo al subir la imagen. Compruebe permisos e intente de nuevo.");
     } finally {
       setImageUploading(false);
     }
@@ -409,11 +439,12 @@ export default function Admin() {
             <button
               onClick={handleConnectGoogle}
               disabled={googleLoading}
-              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider border flex items-center gap-2 ${
+              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider border flex items-center gap-2 transition-all cursor-pointer ${
                 googleToken
-                  ? "bg-green-100 text-green-800 border-green-300 cursor-default"
+                  ? "bg-green-100 text-green-800 border-green-300 hover:bg-red-50 hover:text-red-600 hover:border-red-300"
                   : "bg-dark text-off-white border-dark hover:bg-dark/80"
               }`}
+              title={googleToken ? "Haga clic para desconectar su cuenta de Google" : "Haga clic para conectar su cuenta de Google"}
             >
               <span className={`w-2 h-2 rounded-full ${googleToken ? "bg-green-600 animate-pulse" : "bg-red-500"}`} />
               {googleToken ? "Conectado a Google" : googleLoading ? "Conectando..." : "Conectar Google"}
