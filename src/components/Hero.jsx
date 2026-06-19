@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1608236415054-3d73e200bce4?w=1920&q=80"
+          src="/PRODUCTOS/_MS19093.jpg"
           alt="BRAVOSTYLE moda urbana"
           className="w-full h-full object-cover"
         />

@@ -1,10 +1,10 @@
 const posts = [
-  { image: "https://images.unsplash.com/photo-1608236415054-3d73e200bce4?w=400&q=80" },
-  { image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" },
-  { image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80" },
-  { image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80" },
-  { image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80" },
-  { image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80" },
+  { image: "/PRODUCTOS/_MS19093.jpg" },
+  { image: "/PRODUCTOS/LOS ANGELES.jpeg" },
+  { image: "/PRODUCTOS/OVERSI ROJO.jpeg" },
+  { image: "/PRODUCTOS/WhatsApp Image 2026-06-18 at 2.19.08 PM.jpeg" },
+  { image: "/PRODUCTOS/WhatsApp Image 2026-06-18 at 2.18.57 PM.jpeg" },
+  { image: "/PRODUCTOS/WhatsApp Image 2026-06-18 at 2.18.53 PM.jpeg" },
 ];
 
 export default function InstagramGallery() {
