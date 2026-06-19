@@ -99,7 +99,7 @@
     "sizes": "M,L,XL",
     "colors": "Gris",
     "stock": 15,
-    "image": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80",
+    "image": "/productos/blanco1.jpeg",
     "gallery": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80",
     "featured": "false",
     "status": "active"
