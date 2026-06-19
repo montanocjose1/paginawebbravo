@@ -9,6 +9,7 @@ export default function Hero() {
           src="/PRODUCTOS/_MS19093.jpg"
           alt="BRAVOSTYLE moda urbana"
           className="w-full h-full object-cover"
+          style={{ objectPosition: "center 35%" }}
         />
         <div className="absolute inset-0 bg-dark/60" />
       </div>
