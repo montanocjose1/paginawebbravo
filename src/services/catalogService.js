@@ -27,6 +27,9 @@ export function formatImageUrl(urlOrId, width = 800) {
   if (!urlOrId) return "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80";
   const str = String(urlOrId).trim();
   
+  // Es una ruta local del servidor
+  if (str.startsWith("/")) return str;
+  
   if (str.startsWith("http")) {
     if (str.includes("drive.google.com")) {
       const fileId = getGoogleDriveFileId(str);

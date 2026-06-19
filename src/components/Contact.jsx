@@ -46,7 +46,7 @@ const socials = [
   {
     name: "Correo",
     href: "mailto:contacto@bravostyle.com",
-    color: "#C9A84C",
+    color: "#7A7A7A",
     icon: (
       <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="4" width="20" height="16" rx="2" />

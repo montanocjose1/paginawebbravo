@@ -9,8 +9,8 @@
     "sizes": "S,M,L,XL",
     "colors": "Negro,Gris Oscuro",
     "stock": 12,
-    "image": "/productos/LOSANGELES.jpeg",
-    "gallery": "/productos/blanco1.jpeg",
+    "image": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80",
+    "gallery": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80,https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&q=80",
     "featured": "true",
     "status": "active"
   },
@@ -99,8 +99,8 @@
     "sizes": "M,L,XL",
     "colors": "Gris",
     "stock": 15,
-    "image": "/productos/blanco1.jpeg",
-    "gallery": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80",
+    "gallery": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80,https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80",
     "featured": "false",
     "status": "active"
   },
