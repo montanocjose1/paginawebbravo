@@ -104,7 +104,7 @@ export default function Hero() {
         </a>
         <span className="w-px h-4 bg-off-white/20" />
         <a
-          href="https://wa.me/573000000000"
+          href="https://wa.me/573235834122"
           target="_blank"
           rel="noopener noreferrer"
           className="text-off-white/60 hover:text-gold transition-all duration-300 hover:scale-110"

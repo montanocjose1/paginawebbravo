@@ -126,7 +126,7 @@ export async function loadConfig() {
       sheetId: "",
       driveFolderId: "",
       googleClientId: "",
-      whatsappNumber: "573000000000",
+      whatsappNumber: "573235834122",
       adminPassword: "admin123",
       useGoogle: false
     };
@@ -203,7 +203,7 @@ export function saveProductsToLocal(products) {
 
 // Generar mensaje personalizado de WhatsApp para compra/consulta
 export function generateWhatsAppLink(product, selectedSize, selectedColor, whatsappNumber) {
-  const number = whatsappNumber ? whatsappNumber.replace(/[^0-9]/g, "") : "573000000000";
+  const number = whatsappNumber ? whatsappNumber.replace(/[^0-9]/g, "") : "573235834122";
   const refText = product.code ? ` (Ref: ${product.code})` : "";
   const sizeText = selectedSize ? `talla ${selectedSize}` : "talla por definir";
   const colorText = selectedColor ? `color ${selectedColor}` : "color por definir";

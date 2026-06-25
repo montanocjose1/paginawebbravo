@@ -3,7 +3,7 @@ import { useShop } from "../context/ShopContext";
 
 export default function WhatsAppFloat() {
   const { config } = useShop();
-  const number = config.whatsappNumber || "573000000000";
+  const number = config.whatsappNumber || "573235834122";
 
   return (
     <motion.a

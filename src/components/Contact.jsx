@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const socials = [
   {
     name: "WhatsApp",
-    href: "https://wa.me/573000000000",
+    href: "https://wa.me/573235834122",
     color: "#25D366",
     icon: (
       <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">

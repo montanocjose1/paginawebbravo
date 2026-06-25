@@ -7,7 +7,7 @@ export default function Cart() {
   const { cart, removeFromCart, updateQty, cartTotal, clearCart, config } = useShop();
 
   const handleWhatsAppCheckout = () => {
-    const number = (config.whatsappNumber || "573000000000").replace(/[^0-9]/g, "");
+    const number = (config.whatsappNumber || "573235834122").replace(/[^0-9]/g, "");
     
     let message = "Hola, quiero comprar estos productos:\n\n";
     

@@ -68,7 +68,7 @@ export function ShopProvider({ children }) {
     sheetId: "",
     driveFolderId: "",
     googleClientId: "",
-    whatsappNumber: "573000000000",
+    whatsappNumber: "573235834122",
     adminPassword: "admin123",
     useGoogle: false
   });

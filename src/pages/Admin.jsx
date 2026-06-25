@@ -78,7 +78,7 @@ export default function Admin() {
       setCfgSheetId(config.sheetId || "");
       setCfgDriveFolderId(config.driveFolderId || "");
       setCfgClientId(config.googleClientId || "");
-      setCfgWhatsapp(config.whatsappNumber || "573000000000");
+      setCfgWhatsapp(config.whatsappNumber || "573235834122");
       setCfgPassword(config.adminPassword || "admin123");
       setCfgUseGoogle(config.useGoogle || false);
     }
@@ -665,7 +665,7 @@ export default function Admin() {
                   type="text"
                   value={cfgWhatsapp}
                   onChange={(e) => setCfgWhatsapp(e.target.value)}
-                  placeholder="573000000000"
+                  placeholder="573235834122"
                   className="w-full bg-dark/5 border border-dark/10 px-4 py-2.5 text-sm outline-none focus:border-dark font-mono text-[11px]"
                 />
               </div>
