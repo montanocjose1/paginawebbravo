@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const categories = [
-  { name: "Suéteres", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80", slug: "sueteres" },
-  { name: "Camisetas", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80", slug: "camisetas" },
+  { name: "Suéteres", image: "/PRODUCTOS/OVERSI ROJO.jpeg", slug: "sueteres" },
+  { name: "Camisetas", image: "/PRODUCTOS/LOS ANGELES.jpeg", slug: "camisetas" },
 ];
 
 const containerVariants = {

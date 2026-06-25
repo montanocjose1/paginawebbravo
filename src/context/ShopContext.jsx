@@ -69,7 +69,7 @@ export function ShopProvider({ children }) {
     driveFolderId: "",
     googleClientId: "",
     whatsappNumber: "573235834122",
-    adminPassword: "admin123",
+    adminPassword: "Bravo19",
     useGoogle: false
   });
 

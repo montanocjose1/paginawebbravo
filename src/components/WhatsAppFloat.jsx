@@ -7,7 +7,7 @@ export default function WhatsAppFloat() {
 
   return (
     <motion.a
-      href={`https://wa.me/${number.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hola! Me interesa conocer más sobre los productos de BRAVOSTYLE 🔥")}`}
+      href={`https://web.whatsapp.com/send?phone=${number.replace(/[^0-9]/g, "")}&text=${encodeURIComponent("Hola! Me interesa conocer más sobre los productos de BRAVOSTYLE 🔥")}`}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:shadow-xl hover:shadow-[#25D366]/40 transition-shadow group"

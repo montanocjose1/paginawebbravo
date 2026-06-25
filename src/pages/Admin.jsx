@@ -82,7 +82,7 @@ export default function Admin() {
       setCfgDriveFolderId(config.driveFolderId || "");
       setCfgClientId(config.googleClientId || "");
       setCfgWhatsapp(config.whatsappNumber || "573235834122");
-      setCfgPassword(config.adminPassword || "admin123");
+      setCfgPassword(config.adminPassword || "Bravo19");
       setCfgUseGoogle(config.useGoogle || false);
     }
   }, [config]);
@@ -684,7 +684,7 @@ export default function Admin() {
                   type="text"
                   value={cfgPassword}
                   onChange={(e) => setCfgPassword(e.target.value)}
-                  placeholder="admin123"
+                  placeholder="Bravo19"
                   className="w-full bg-dark/5 border border-dark/10 px-4 py-2.5 text-sm outline-none focus:border-dark font-mono text-[11px]"
                 />
               </div>
