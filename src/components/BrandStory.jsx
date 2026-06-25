@@ -24,7 +24,7 @@ export default function BrandStory() {
             <br />
             ROPA
           </h2>
-          <p className="mt-6 text-off-white/60 text-sm md:text-base leading-relaxed font-light">
+          <p className="mt-6 text-off-white/60 text-sm md:text-base leading-relaxed font-light text-justify">
             Bravo Style nace en Santa Marta, Colombia, con la misión de crear prendas que representen la actitud, la pasión y la energía de la juventud colombiana. Cada camiseta es diseñada con cuidado, fusionando estilos audaces y diseños innovadores que reflejan nuestra identidad caribeña. Somos más que una marca: somos un movimiento que celebra el talento y la creatividad de Colombia al mundo.
           </p>
         </div>

@@ -4,9 +4,6 @@ import { motion } from "framer-motion";
 const categories = [
   { name: "Suéteres", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80", slug: "sueteres" },
   { name: "Camisetas", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80", slug: "camisetas" },
-  { name: "Pantalones", image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&q=80", slug: "pantalones" },
-  { name: "Gorras", image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=800&q=80", slug: "gorras" },
-  { name: "Accesorios", image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=800&q=80", slug: "accesorios" },
 ];
 
 const containerVariants = {
