@@ -27,6 +27,8 @@ export default function Admin() {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [gsiLoaded, setGsiLoaded] = useState(false);
 
+  const ALL_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "Única"];
+
   // Estados para Crear / Editar Producto
   const [showProductModal, setShowProductModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -41,6 +43,7 @@ export default function Admin() {
   const [formCategory, setFormCategory] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [formSizes, setFormSizes] = useState("S,M,L,XL");
+  const [selectedSizes, setSelectedSizes] = useState(["S", "M", "L", "XL"]);
   const [formColors, setFormColors] = useState("Negro,Blanco");
   const [formImage, setFormImage] = useState("");
   const [formGallery, setFormGallery] = useState("");
@@ -186,6 +189,7 @@ export default function Admin() {
     setFormCategory("");
     setFormDescription("");
     setFormSizes("S,M,L,XL");
+    setSelectedSizes(["S", "M", "L", "XL"]);
     setFormColors("Negro,Blanco");
     setFormImage("");
     setFormGallery("");
@@ -202,7 +206,9 @@ export default function Admin() {
     setFormStock(product.stock.toString());
     setFormCategory(product.category || "");
     setFormDescription(product.description || "");
-    setFormSizes(product.sizes || "");
+    const sizes = product.sizes || "";
+    setFormSizes(sizes);
+    setSelectedSizes(sizes ? sizes.split(",").map(s => s.trim()).filter(Boolean) : []);
     setFormColors(product.colors || "");
     setFormImage(product.image || "");
     setFormGallery(product.gallery || "");
@@ -912,14 +918,32 @@ export default function Admin() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block font-bold uppercase tracking-widest text-dark mb-2">Tallas Disponibles</label>
-                  <input
-                    type="text"
-                    value={formSizes}
-                    onChange={(e) => setFormSizes(e.target.value)}
-                    placeholder="S,M,L,XL"
-                    className="w-full bg-dark/5 border border-dark/10 px-4 py-2.5 outline-none"
-                  />
-                  <p className="text-[9px] text-smoke mt-1 font-light">Separadas por comas (Ej: S,M,L).</p>
+                  <div className="flex flex-wrap gap-2">
+                    {ALL_SIZES.map((size) => {
+                      const isSelected = selectedSizes.includes(size);
+                      const toggleSize = () => {
+                        const next = isSelected
+                          ? selectedSizes.filter(s => s !== size)
+                          : [...selectedSizes, size];
+                        setSelectedSizes(next);
+                        setFormSizes(next.join(","));
+                      };
+                      return (
+                        <button
+                          key={size}
+                          type="button"
+                          onClick={toggleSize}
+                          className={`px-3 py-1.5 border text-xs font-bold uppercase tracking-wider transition-all ${
+                            isSelected
+                              ? "bg-dark border-dark text-off-white"
+                              : "border-dark/10 text-dark hover:border-dark/30"
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
                 <div>
                   <label className="block font-bold uppercase tracking-widest text-dark mb-2">Colores Disponibles</label>
